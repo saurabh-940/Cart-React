@@ -31,14 +31,17 @@ export const cartReducer = createReducer(
       state.cartItems = state.cartItems.filter((i) => i.id !== action.payload);
     },
     calculatePrice: (state) => {
-      let  sum = 0;
+      let sum = 0;
       state.cartItems.map((i) => {
         sum += i.price * i.quantity;
       });
       state.shipping = sum > 1000 ? 0 : 200;
       state.subtotal = sum;
-      state.tax=(sum*0.18).toFixed(2);
-      state.total = state.subtotal + state.shipping + (sum*0.18).toFixed(2)
+      state.tax = Number((sum * 0.18).toFixed(2));
+      console.log(state.subtotal + state.shipping + state.tax);
+      state.total = Number(state.subtotal + state.shipping + state.tax);
+      console.log(typeof state.total);
+      console.log(typeof state.tax);
     },
   }
 );
